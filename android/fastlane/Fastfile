@@ -1,0 +1,131 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test")
+  end
+
+  def bumpAll
+    sh("../bin/bump.sh")
+  end
+
+  def getInfo
+    commit = last_git_commit
+    revNumber=`git rev-list --all|wc -l|xargs`
+    shaNumber=`git rev-parse --verify --short HEAD`
+    branch=`git branch --show-current`
+    commit[:branch] = branch
+    commit[:rev] = revNumber
+    commit[:sha] = commit[:abbreviated_commit_hash]
+    print("Rev number: #{revNumber}".blue)
+    print("Commit SHA: #{shaNumber}".blue)
+    puts("Commit Object: #{commit}".yellow)
+    puts("Commit Author: #{commit[:author]}".blue)
+    puts("Commit Message: #{commit[:message]}".blue)
+    puts("Commit HASH: #{commit[:commit_hash]}".blue)
+    puts("Commit SHA: #{commit[:abbreviated_commit_hash]}".blue)
+    puts("Commit Branch: #{branch}".blue)
+    return commit
+  end
+
+  def buildAndroid
+    build_android_app( # built-in fastlane action.
+      task: "assemble",
+      build_type: "Release",
+    )
+  end
+
+  def toFirebase
+    puts $FIREBASE_TOKEN
+    firebase_app_distribution(
+      apk_path: "../build/app/outputs/apk/release/app-release.apk",
+      app: "1:1087855424394:android:3a568bcd5f12c731fa8e73",
+      testers: "robblovell@gmail.com",  # "/path/to/testers.txt"
+      release_notes: "",  # "/path/to/release-notes.txt"
+      firebase_cli_token: $FIREBASE_TOKEN
+    )
+  end
+
+  def notifySlack(message, commit, result)
+    slack(
+      slack_url: ENV["SLACK_HOOK"],
+      message: message,
+      success: result,
+      default_payloads: [commit[:branch],commit[:sha],commit[:rev], commit[:message]]
+    )
+  end
+
+  desc "info"
+    lane :info do |options|
+      getInfo()
+    end
+
+  desc "bump"
+    lane :bump do |options|
+      bumpAll()
+      notifySlack("Versions for ios and android have been bumped.", commit, true)
+    end
+
+  desc "build"
+    lane :build do
+      buildAndroid()
+      commit = getInfo()
+      notifySlack("A new apk has been built and is available.", commit, true)
+    end
+
+  desc "bundle"
+    lane :bundle do
+      sh("flutter build appbundle")
+#      gradle(task: "clean assembleRelease")
+      commit = getInfo()
+      notifySlack("Successfully bundled android version.", commit, true)
+    end
+
+  desc "tofirebase"
+    lane :tofirebase do
+      toFirebase()
+      commit = getInfo()
+      notifySlack("A new build is available for testing", commit, true)
+    end
+
+  # Experimental:
+  desc "beta"
+    lane :beta do
+      # gradle(task: "clean assembleRelease")
+#      crashlytics
+#      buildAndroid()
+      upload_to_play_store(track: 'beta')
+      commit = getInfo()
+      notifySlack("Successfully published a beta build", commit, true)
+    end
+
+  # Experimental:
+  desc "publish"
+    lane :publish do
+      commit = getInfo()
+      upload_to_play_store(track: 'store')
+      notifySlack("Successfully published a store build", commit, true)
+    end
+
+  # handle exception
+  error do |lane, exception, options|
+    commit = getInfo()
+    notifySlack("Build failed with exception: #{exception}", commit, false)
+  end
+end

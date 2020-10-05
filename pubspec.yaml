@@ -1,0 +1,88 @@
+name: protestersoath
+description: The Protesters Oath
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+version: 1.0.7+20
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  auto_size_text: ^2.1.0
+  #  cloud_firestore_web: ^0.1.1+2 # Cloud Firestore Web is behind  from 0.2.0+1
+  #  cloud_firestore: ^0.13.2+2
+  bloc: ^6.0.3
+  bloc_test: ^7.0.3
+  cloud_firestore: ^0.14.0+2
+  cupertino_icons: ^1.0.0
+  easy_localization: ^2.3.3
+  equatable: ^1.1.1
+  #  firebase_auth: ^0.18.0+1
+  firebase_analytics: ^6.0.0
+  firebase_core: ^0.5.0
+  flutter_bloc: ^6.0.5
+  flutter_cubit: ^0.1.1
+  flutter_crashlytics: ^1.0.0
+  flutter_html: ^1.0.2
+  #  flutter_phoenix: ^0.1.0
+  flutter_redux: ^0.6.0
+  flutter_session: ^0.1.1
+  #  flutter_signin_button: ^1.1.0
+  flutter_svg: ^0.18.1
+  fluttertoast: ^7.0.4
+  font_awesome_flutter: ^8.8.1
+  #  global_configuration: ^1.6.0
+  #  google_sign_in: ^4.0.1+1
+  json_annotation: ^3.1.0
+  link: ^1.1.0
+  lottie: ^0.6.0
+  material_design_icons_flutter: ^4.0.5555
+  pin_input_text_field: ^3.1.1
+  preferences: ^5.2.1
+  #  pin_entry_text_field: ^0.1.4
+  #  pinput: ^0.2.0
+  redux_thunk: ^0.3.0
+  rxdart: ^0.23.0 # 0.24.1
+  simple_animations: ^2.2.2
+  shared_preferences: ^0.5.10
+  webfeed: ^0.6.0
+
+dev_dependencies:
+  flutter_launcher_icons: "^0.8.0"
+  flutter_test:
+    sdk: flutter
+  #  lint: ^1.0.0
+  pedantic: ^1.0.0
+
+flutter_icons:
+  ios: true
+  android: "launcher_icon"
+  image_path_ios: "assets/launcher/icon.png"
+  image_path_android: "assets/launcher/icon.png"
+  adpative_icon_background: "assets/launcher/background.png"
+  adpative_icon_foreground: "assets/launcher/foreground.png"
+
+flutter:
+  uses-material-design: true
+
+  # Asset Directories
+  assets:
+    - assets/img/
+    - assets/img/stories/
+    - assets/translations/
