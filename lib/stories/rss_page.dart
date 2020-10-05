@@ -35,7 +35,7 @@ class RSSReaderState extends State<RSSReader> {
 
   // Notification Strings
   static const String loadingMessage = 'Loading Feed...';
-  static const String feedLoadErrorMessage = 'Error Loading Feed.';
+  static const String feedLoadErrorMessage = 'Error Loading Feed: Try in-\napp stories, set in settings.';
   static const String feedOpenErrorMessage = 'Error Opening Feed.';
 
   // Key for the RefreshIndicator
@@ -97,7 +97,11 @@ class RSSReaderState extends State<RSSReader> {
       return RssFeed.parse(response.body);
     } catch (e) {
       // handle any exceptions here
-      print("Error: " + e);
+      // PrefService.setString('stories', 'pages');
+      // BlocProvider.of<AppDrawerBloc>(context)
+      //     .add(BackButtonEvent("StoryPage"));
+      // print("Error: " + e);
+      return null;
     }
     return null;
   }
