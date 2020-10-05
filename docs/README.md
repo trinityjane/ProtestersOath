@@ -401,3 +401,6 @@ Note: /Users/robblovell/Development/flutter/.pub-cache/hosted/pub.dartlang.org/
    webview_flutter-0.3.24/android/src/main/java/io/flutter/plugins/webviewflutter/FlutterWebView.java uses unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
 
+for: flutter warning: The iOS deployment target 'IPHONEOS_DEPLOYMENT_TARGET' is set to 8.0, but the range of supported deployment target versions is 9.0 to 14.0.99.
+
+https://stackoverflow.com/questions/63973136/the-ios-deployment-target-iphoneos-deployment-target-is-set-to-8-0-in-flutter

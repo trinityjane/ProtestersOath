@@ -23,7 +23,15 @@ class OathCard extends StatelessWidget {
     double heightPart2 = height / (30);
     double aspectPart2 = 3 / aspect;
     double padTop = this.shortCard ? 0:2;
-    if (aspect < .5) { // wider phones.
+    bool isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
+
+    if (isLandscape) {
+      heightPart1 = height / (40);
+      aspectPart1 = 2 / aspect;
+      heightPart2 = height / (55);
+      aspectPart2 = 2 / aspect;
+    }
+    else if (aspect < .5) { // wider phones.
       heightPart1 = height / (29);
       aspectPart1 = 3.8 / aspect;
       heightPart2 = height / (32);
