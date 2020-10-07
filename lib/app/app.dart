@@ -15,9 +15,7 @@ import 'package:protestersoath/splash/splash_page.dart';
 import 'package:protestersoath/stories/StoriesSwitcher.dart';
 import 'package:protestersoath/stories/stories_cubit.dart';
 import 'package:protestersoath/settings/settings_page.dart';
-import 'package:protestersoath/stories/story_page.dart';
 import 'package:protestersoath/utils/onBackPressed.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../about/about_page.dart';
 import '../navigation/app_drawer/appdrawer_state.dart';
@@ -83,7 +81,7 @@ class _AppViewState extends State<AppView> {
     super.initState();
   }
 
-  var state = null;
+  AppDrawerState state = LoadingState();
 
   Future<bool> _onBackPressed() {
     return onBackPressed(context, false, this.state);

@@ -19,7 +19,6 @@ class Triangle extends Shape {
     this.points[2] = p2;
   }
 
-  @override
   List<Shape> split() {
     return [this, this];
   }
@@ -82,9 +81,9 @@ class Triangle extends Shape {
     return Point((p0.x + p1.x) / 2, (p0.y + p1.y) / 2);
   }
 
-  List<Shape> splitTriangle(direction, [Color color = null]) {
+  List<Shape> splitTriangle(direction, [Color color = Colors.transparent]) {
     int p1, p2, p0;
-    if (color == null) {
+    if (color == Colors.transparent) {
       color = this.color;
     }
     switch (direction) {

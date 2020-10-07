@@ -38,9 +38,11 @@ class OathCard extends StatelessWidget {
       aspectPart2 = 3.8 / aspect;
     }
 
-    final double fontSize = (heightPart1 - aspectPart1).toInt().toDouble();
-    final double minFontSize = (heightPart2 - aspectPart2).toInt().toDouble();
+    double fontSize = (heightPart1 - aspectPart1).toInt().toDouble();
+    double minFontSize = (heightPart2 - aspectPart2).toInt().toDouble();
 
+    if (fontSize < 12) { fontSize = 12; }
+    if (minFontSize < 10) { minFontSize = 10; }
     // if (this.index==0) {
     //   print("height: " + height.toString() + " width: " + width.toString());
     //   print("aspect: " + aspect.toString());

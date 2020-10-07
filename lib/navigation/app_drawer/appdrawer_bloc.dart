@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter_session/flutter_session.dart';
-import 'package:protestersoath/data/Protester.dart';
 import 'package:protestersoath/data/Token.dart';
 import 'package:bloc/bloc.dart';
 import './appdrawer.dart';

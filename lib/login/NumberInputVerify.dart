@@ -1,6 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:protestersoath/login/bloc/login.dart';
-import 'package:protestersoath/login/bloc/login_bloc.dart';
 import 'package:protestersoath/login/PhoneTextFormField.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

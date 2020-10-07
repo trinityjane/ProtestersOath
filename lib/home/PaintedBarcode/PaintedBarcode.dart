@@ -57,11 +57,11 @@ class PaintedBarcode {
     if (shape.type == SHAPES.square) {
       return (shape as Square).splitRect(direction % 4, color);
     }
-    return [shape] as List<Object>;
+    return [shape];
   }
 
   List<Object> spread(List<Object> thisList) {
-    List<Object> value = [] as List<Object>;
+    List<Object> value = [];
     thisList.forEach((element) {
       if (element is Shape) {
         value.add(element);
@@ -149,7 +149,7 @@ class PaintedBarcode {
   arrayDraw(Canvas canvas, List<Object> shapes) {
     shapes.forEach((shape) {
       if (shape is List<Object>) {
-        this.arrayDraw(canvas, shape as List<Object>);
+        this.arrayDraw(canvas, shape);
       } else {
         (shape as Shape).draw(canvas);
       }

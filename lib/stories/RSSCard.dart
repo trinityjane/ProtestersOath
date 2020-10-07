@@ -4,7 +4,6 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:link/link.dart';
 import 'package:protestersoath/stories/StoryModel.dart';
 
-
 Widget RSSCard(BuildContext context, StoryModel story, openFeed) {
   void _showErrorSnackBar() {
     Scaffold.of(context).showSnackBar(

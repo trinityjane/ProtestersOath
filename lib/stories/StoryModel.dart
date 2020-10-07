@@ -37,7 +37,7 @@ class StoryModel {
           .innerHtml
           : '';
 
-      String date = '', credit = '', url = '', link = '';
+      String date = '', credit = '', url = '';
       if (document.getElementsByTagName("meta").isNotEmpty) {
         List<Element> meta = document.getElementsByTagName("meta");
         date = meta.elementAt(0).attributes['date'];

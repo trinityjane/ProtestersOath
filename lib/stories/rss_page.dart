@@ -103,7 +103,6 @@ class RSSReaderState extends State<RSSReader> {
       // print("Error: " + e);
       return null;
     }
-    return null;
   }
 
   // When the app is initialized, we setup our GlobalKey, set our title, and

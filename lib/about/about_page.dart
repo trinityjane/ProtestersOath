@@ -19,7 +19,16 @@ class AboutPage extends StatelessWidget {
     double appBarHeight = AppBar().preferredSize.height;
 
     double height = MediaQuery.of(context).size.height - appBarHeight;
-    double textHeight = height * 0.5;
+    double textHeight = height * 0.75;
+    bool isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
+    if (isLandscape && height > 550) {
+      textHeight = 150;
+    }
+    // bool isAndroid = Theme.of(context).platform == TargetPlatform.android;
+    if (!isLandscape && height > 550 ) {
+      textHeight = height * 0.5;
+    }
+    print(height.toString());
     return Scaffold(
         drawer: this.drawer == 'all' ? AppDrawer() : null,
         backgroundColor: Colors.grey,

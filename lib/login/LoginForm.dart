@@ -15,11 +15,9 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  LoginBloc _loginBloc;
 
   @override
   void initState() {
-    _loginBloc = BlocProvider.of<LoginBloc>(context);
     super.initState();
   }
 
@@ -36,7 +34,7 @@ class _LoginFormState extends State<LoginForm> {
     return WillPopScope(
         onWillPop: _onBackPressed,
         child: BlocListener<LoginBloc, LoginState>(
-          cubit: _loginBloc,
+          cubit: BlocProvider.of<LoginBloc>(context),
           listener: (context, loginState) {
             if (loginState is ExceptionState) {
               String message;

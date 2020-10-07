@@ -43,8 +43,8 @@ class Square extends Shape {
     this.rect = Rect.fromLTRB(left, top, right, bottom);
   }
 
-  List<Shape> splitRect(int direction, [Color color = null]) {
-    if (color == null) {
+  List<Shape> splitRect(int direction, [Color color = Colors.transparent]) {
+    if (color == Colors.transparent) {
       color = this.color;
     }
     switch (direction) {

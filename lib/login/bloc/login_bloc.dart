@@ -7,7 +7,7 @@ import 'package:protestersoath/data/Protester.dart';
 import './login.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  StreamSubscription subscription;
+  // StreamSubscription subscription;
 
   String verID = "";
 

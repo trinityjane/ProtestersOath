@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:protestersoath/data/Token.dart';
 import 'package:protestersoath/utils/stripCorrectPhone.dart';
-
 import 'PaintedBarcode/PaintedBarcode.dart';
-import 'PaintedBarcode/Shape.dart';
-import 'PaintedBarcode/Square.dart';
+
 
 class ShapesPainter extends CustomPainter {
   String phoneNumber;
