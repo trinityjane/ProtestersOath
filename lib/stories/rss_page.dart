@@ -47,10 +47,9 @@ class RSSReaderState extends State<RSSReader> {
   String _title; // Place holder for appbar title.
 
   // Notification Strings
-  static const String loadingMessage = 'Loading Feed...';
-  static const String feedLoadErrorMessage =
-      'Error Loading Feed: Try in-\napp stories, set in settings.';
-  static const String feedOpenErrorMessage = 'Error Opening Feed.';
+  static String loadingMessage = 'LOADING_FEED'.tr();
+  static String feedLoadErrorMessage = 'FEED_LOAD_ERROR'.tr();
+  static String feedOpenErrorMessage = 'FEED_OPEN_ERROR'.tr();
 
   // Key for the RefreshIndicator
   // See the documentation linked below for info on the RefreshIndicatorState

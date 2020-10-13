@@ -48,6 +48,10 @@ THEOATH: The Oath
 THEREASON: Reason for the Oath
 OATH_TAKEN: I Took the Protester's Oath
 
+LOADING_FEED: Loading Feed...
+FEED_LOAD_ERROR: 'Error Loading Feed: Try in-\napp stories, set in settings.'
+FEED_OPEN_ERROR: Error Opening Feed.
+
 PROTESTS: Upcoming Protests
 PROTESTS_TOOLTIP: Upcoming Protests
 NOTHINGTOSHOW: Check back later, no protests are currently registered.
