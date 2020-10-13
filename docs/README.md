@@ -333,6 +333,10 @@ Go to the google play store connect panel, the releases section and create a new
 
 https://play.google.com/apps/publish/?account=8903415627879383311#AppListPlace
 
+**ios**
+
+https://appstoreconnect.apple.com/login
+
 ```
 This app helps you as a protester show to outside observers that you are not participating in violence. 
 If non-protesters see other groups being violent, they are able to say to themselves: 
