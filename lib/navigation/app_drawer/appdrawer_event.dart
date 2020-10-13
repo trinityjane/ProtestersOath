@@ -52,6 +52,16 @@ class StoryPageEvent extends AppDrawerEvent {
   List<Object> get props => [];
 }
 
+class ProtestPageEvent extends AppDrawerEvent {
+  ProtestPageEvent() : super();
+
+  @override
+  String toString() => 'ProtestPage';
+
+  @override
+  List<Object> get props => [];
+}
+
 class OathPageEvent extends AppDrawerEvent {
   OathPageEvent() : super();
 

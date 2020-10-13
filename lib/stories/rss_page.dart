@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_session/flutter_session.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import 'package:preferences/preference_service.dart';
@@ -15,10 +16,17 @@ import 'RSSCard.dart';
 import 'StoryModel.dart';
 
 class RSSReader extends StatefulWidget {
-  RSSReader() : super();
+  RSSReader({this.which = 'Stories', this.title = ''}) : super();
+
+  final which;
 
   // Setting title for the action bar.
-  final String title = '<Hacker News\\> | Jobs Feed';
+  final String title;
+  static DateTime lastFeed = DateTime.now();
+  static Duration haveFeed = new Duration(days:0);
+  static RssFeed feed;
+  // Feed URL being used for the app. In this case is the Hacker News job feed.
+  static const String FEED_URL = 'https://protestersoath.com?feed=rss2';
 
   @override
   RSSReaderState createState() => RSSReaderState();
@@ -27,10 +35,11 @@ class RSSReader extends StatefulWidget {
 class RSSReaderState extends State<RSSReader> {
   final drawer = PrefService.getString('drawer', ignoreCache: true);
 
-  // Feed URL being used for the app. In this case is the Hacker News job feed.
-  static const String FEED_URL = 'https://protestersoath.com?feed=rss2';
-
   RssFeed _feed; // RSS Feed Object
+
+  List<RssItem> _stories;
+  List<RssItem> _protests;
+
   String _title; // Place holder for appbar title.
 
   // Notification Strings
@@ -54,9 +63,25 @@ class RSSReaderState extends State<RSSReader> {
   }
 
   // Method to help refresh the RSS data.
-  updateFeed(feed) {
+  // separate out stories and protest information from other posts.
+  updateFeed(feed) async {
+
     setState(() {
       _feed = feed;
+    });
+
+    bool isIn(item, value) {
+      bool found = false;
+      item.categories.forEach((element) => {
+        if (element.value == value) { found=true }
+      });
+      return found;
+    }
+    setState(() {
+      _stories = feed.items.where((item) => isIn(item, 'Stories')).toList();
+    });
+    setState(() {
+      _protests = feed.items.where((item) => isIn(item, "Protests")).toList();
     });
   }
 
@@ -76,24 +101,33 @@ class RSSReaderState extends State<RSSReader> {
   // Method to load the RSS data.
   load() async {
     updateTitle(loadingMessage);
-    loadFeed().then((result) {
-      if (null == result || result.toString().isEmpty) {
-        // Notify user of error.
-        updateTitle(feedLoadErrorMessage);
-        return;
-      }
-      // If there is no error, load the RSS data into the _feed object.
-      updateFeed(result);
-      // Reset the title.
-      updateTitle("STORIES".tr());
-    });
+    RSSReader.haveFeed = RSSReader.lastFeed.difference(DateTime.now());
+    if (RSSReader.haveFeed.inDays > 1 ||
+        RSSReader.feed == null ||
+        RSSReader.feed.items.length == 0) {
+      loadFeed().then((result) {
+        if (null == result || result.toString().isEmpty) {
+          // Notify user of error.
+          updateTitle(feedLoadErrorMessage);
+          return;
+        }
+        // If there is no error, load the RSS data into the _feed object.
+        updateFeed(result);
+        // cache the result in a static object in memory.
+        RSSReader.feed = result;
+      });
+    } else {
+      updateFeed(RSSReader.feed);
+    }
+    // Reset the title.
+    updateTitle(widget.title);
   }
 
   // Method to get the RSS data from the provided URL in the FEED_URL variable.
   Future<RssFeed> loadFeed() async {
     try {
       final client = http.Client();
-      final response = await client.get(FEED_URL);
+      final response = await client.get(RSSReader.FEED_URL);
       return RssFeed.parse(response.body);
     } catch (e) {
       // handle any exceptions here
@@ -124,13 +158,13 @@ class RSSReaderState extends State<RSSReader> {
   body() {
     return isFeedEmpty()
         ? Center(
-            child: CircularProgressIndicator(),
-          )
+      child: CircularProgressIndicator(),
+    )
         : RefreshIndicator(
-            key: _refreshKey,
-            child: list(),
-            onRefresh: () => load(),
-          );
+      key: _refreshKey,
+      child: list(),
+      onRefresh: () => load(),
+    );
   }
 
   @override
@@ -150,12 +184,12 @@ class RSSReaderState extends State<RSSReader> {
           leading: drawer == 'all'
               ? null
               : IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: () {
-                    BlocProvider.of<AppDrawerBloc>(context)
-                        .add(BackButtonEvent("StoryPage"));
-                  },
-                ),
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              BlocProvider.of<AppDrawerBloc>(context)
+                  .add(BackButtonEvent("StoryPage"));
+            },
+          ),
         ),
         body: body(),
       ),
@@ -164,27 +198,28 @@ class RSSReaderState extends State<RSSReader> {
 
   // ==================== ListView Components ====================
   list() {
+    var listToShow = widget.which == 'Stories' ? _stories : _protests;
     return //Column(children: <Widget>[
-        Container(
-            color: Colors.grey,
-            child: CustomScrollView(slivers: <Widget>[
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                    final item = _feed.items[index];
-                    StoryModel story = new StoryModel.fromRSSFeed(item);
-                    return Container(
-                      margin: EdgeInsets.only(
-                        bottom: 10.0,
-                      ),
-                      decoration: customBoxDecoration(),
-                      child: RSSCard(context, story, openFeed),
-                    );
-                  },
-                  childCount: _feed.items.length,
-                ),
+      Container(
+          color: Colors.grey,
+          child: CustomScrollView(slivers: <Widget>[
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                  final item = listToShow[index];
+                  StoryModel story = new StoryModel.fromRSSFeed(item);
+                  return Container(
+                    margin: EdgeInsets.only(
+                      bottom: 10.0,
+                    ),
+                    decoration: customBoxDecoration(),
+                    child: RSSCard(context, story, openFeed),
+                  );
+                },
+                childCount: listToShow.length,
               ),
-            ]));
+            ),
+          ]));
   }
 
   // Method that returns the Text Widget for the title of our RSS data.
@@ -228,5 +263,5 @@ class RSSReaderState extends State<RSSReader> {
     );
   }
 
-  // ====================  End ListView Components ====================
+// ====================  End ListView Components ====================
 }

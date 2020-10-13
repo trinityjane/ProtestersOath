@@ -31,6 +31,8 @@ class TheReason extends StatelessWidget {
                   TextSpan(text: 'REASON3'.tr() + '\n\n'),
                   TextSpan(text: 'REASON4'.tr() + '\n\n'),
                   TextSpan(text: 'REASON5'.tr() + '\n\n'),
+                  TextSpan(text: 'REASON6'.tr() + '\n\n'),
+                  TextSpan(text: 'REASON7'.tr() + '\n\n'),
                   TextSpan(
                       style: TextStyle(
                         fontWeight: FontWeight.w500,

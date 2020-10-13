@@ -25,6 +25,12 @@ class HomePage extends StatelessWidget {
             ),
             actions: [
               IconButton(
+                icon: Icon(Icons.announcement, size: 25),
+                onPressed: () => BlocProvider.of<AppDrawerBloc>(context)
+                    .add(ProtestPageEvent()),
+                tooltip: 'PROTESTS_TOOLTIP'.tr(),
+              ),
+              IconButton(
                 icon: Icon(Icons.art_track, size: 35),
                 onPressed: () => BlocProvider.of<AppDrawerBloc>(context)
                     .add(StoryPageEvent()),

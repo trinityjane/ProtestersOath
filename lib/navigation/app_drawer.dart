@@ -46,6 +46,11 @@ class AppDrawer extends StatelessWidget {
                         .add(StoryPageEvent());
                     Navigator.pop(theContext);
                   }),
+                  MenuItem('PROTESTS'.tr(), Icons.announcement, () {
+                    BlocProvider.of<AppDrawerBloc>(theContext)
+                        .add(ProtestPageEvent());
+                    Navigator.pop(theContext);
+                  }),
                   MenuItem('SETTINGS'.tr(), Icons.settings, () {
                     BlocProvider.of<AppDrawerBloc>(theContext)
                         .add(SettingsPageEvent());

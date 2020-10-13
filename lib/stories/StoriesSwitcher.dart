@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:preferences/preference_service.dart';
 import 'package:protestersoath/stories/rss_page.dart';
 import 'package:protestersoath/stories/story_page.dart';
@@ -15,7 +16,7 @@ class StoriesSwitcher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (this.stories == "feeds") {
-      return RSSReader();
+      return RSSReader(which: 'Stories', title: 'STORIES'.tr());
     }
     else {
       return StoryPage();
