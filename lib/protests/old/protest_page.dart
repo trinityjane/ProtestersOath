@@ -6,10 +6,10 @@ import 'package:protestersoath/navigation/app_drawer.dart';
 import 'package:protestersoath/navigation/app_drawer/appdrawer_bloc.dart';
 import 'package:protestersoath/navigation/app_drawer/appdrawer_event.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:protestersoath/protests/protests_cubit.dart';
-import 'package:protestersoath/protests/protests_state.dart';
+import 'package:protestersoath/protests/old/protests_cubit.dart';
+import 'package:protestersoath/protests/old/protests_state.dart';
 
-import 'ProtestCard.dart';
+import '../ProtestRSSCard.dart';
 
 class ProtestPage extends StatefulWidget {
   @override
@@ -66,7 +66,7 @@ class _ProtestPageState extends State<ProtestPage> {
                                 SliverList(
                                   delegate: SliverChildListDelegate(
                                     [
-                                      ProtestCard(context, state.protest),
+                                      // ProtestCard(context, state.protest),
                                     ],
                                   ),
                                 )

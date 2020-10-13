@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:link/link.dart';
-import 'package:protestersoath/stories/StoryModel.dart';
+import 'package:protestersoath/stories/FeedModel.dart';
 
-Widget RSSCard(BuildContext context, StoryModel story, openFeed) {
+Widget StoryRSSCard(BuildContext context, FeedModel story, openFeed) {
   void _showErrorSnackBar() {
     Scaffold.of(context).showSnackBar(
       SnackBar(

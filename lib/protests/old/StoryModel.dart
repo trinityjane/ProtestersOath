@@ -2,7 +2,8 @@ import 'package:webfeed/domain/rss_item.dart';
 import 'package:html/parser.dart' show parse;
 import 'package:html/dom.dart';
 
-class StoryModel {
+class FeedModel {
+  final String type = 'Story';
   String date;
   String title;
   String summary;
@@ -13,7 +14,7 @@ class StoryModel {
   String postURL;
   bool isHTML;
 
-  StoryModel(
+  FeedModel(
       {this.date,
       this.title,
       this.summary,
@@ -24,7 +25,7 @@ class StoryModel {
       this.postURL,
       this.isHTML = false});
 
-  StoryModel.fromRSSFeed(RssItem item) {
+  FeedModel.fromRSSFeed(RssItem item) {
     try {
       final document = parse(item.content.value.trim());
 

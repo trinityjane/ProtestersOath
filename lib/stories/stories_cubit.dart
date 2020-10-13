@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:cubit/cubit.dart';
-import 'StoryModel.dart';
+import 'FeedModel.dart';
 import 'stories_state.dart';
 
 class StoriesCubit extends Cubit<StoriesState> {
@@ -29,7 +29,7 @@ class StoriesCubit extends Cubit<StoriesState> {
       var image = 'STORY_IMAGE_' + index;
       var postURL = 'STORY_URL_' + index;
       var referenceURL = 'STORY_URL_' + index;
-      final story = StoryModel(
+      final story = FeedModel(
           date: fn(date.tr()),
           title: fn(title.tr()),
           summary: fn(summary.tr()),

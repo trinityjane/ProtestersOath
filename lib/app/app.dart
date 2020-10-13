@@ -15,7 +15,7 @@ import 'package:protestersoath/splash/splash_page.dart';
 import 'package:protestersoath/stories/StoriesSwitcher.dart';
 import 'package:protestersoath/stories/stories_cubit.dart';
 import 'package:protestersoath/protests/ProtestsSwitcher.dart';
-import 'package:protestersoath/protests/protests_cubit.dart';
+import 'package:protestersoath/protests/old/protests_cubit.dart';
 
 import 'package:protestersoath/settings/settings_page.dart';
 import 'package:protestersoath/utils/onBackPressed.dart';

@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:cubit/cubit.dart';
-import 'ProtestModel.dart';
-import 'protests_state.dart';
+import '../../stories/FeedModel.dart';
+import './protests_state.dart';
 
 class ProtestsCubit extends Cubit<ProtestsState> {
   ProtestsCubit() : super(InitialState()) {
@@ -29,7 +29,7 @@ class ProtestsCubit extends Cubit<ProtestsState> {
       var image = 'STORY_IMAGE_' + index;
       var postURL = 'STORY_URL_' + index;
       var referenceURL = 'STORY_URL_' + index;
-      final protest = ProtestModel(
+      final protest = FeedModel(
           date: fn(date.tr()),
           title: fn(title.tr()),
           summary: fn(summary.tr()),

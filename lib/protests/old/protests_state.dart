@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import 'ProtestModel.dart';
+import '../../stories/FeedModel.dart';
 
 abstract class ProtestsState extends Equatable {}
 
@@ -17,7 +17,7 @@ class LoadingState extends ProtestsState {
 class LoadedState extends ProtestsState {
   LoadedState(this.protest);
 
-  final ProtestModel protest;
+  final FeedModel protest;
 
   @override
   List<Object> get props => [protest];
