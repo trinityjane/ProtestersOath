@@ -223,28 +223,30 @@ TBD
 The output location of building and packaging is a directory 
 one up from /ios and /android in the /build directory of the project:
 
+**output locations**
+
 * /build/app/outputs/apk/[debug | release]/app-[debug | release].apk
 * /ios/Runner.ipa
 
+**for both android and ios***
+
 To make sure that you are starting from scratch and the version numbers copied from the pubspec.yaml file
 to genreated.xcconfig and local.properties files for fastlane to use:
+
 ```shell script
 flutter clean
 ```
+
 **android**
-```shell script
-flutter build apk 
-flutter build ios --releasae --no-codesign
-```
 for android you can also do 
 ```shell script
+flutter build apk 
 flutter build appbundle
 ```
+
 **ios**
 ```shell script
-flutter clean
-flutter build apk 
-flutter build ios --releasae --no-codesign
+flutter build ios --release --no-codesign
 ```
 #### Packaging:
 
@@ -296,11 +298,25 @@ fastlane ios build method:app-store
 This command builds an ipa file for iOS.
 
 #### Determine Version Numbers
-android:
+
+**both**
+
+```shell script
+./bin/version.sh
+```
+or from the ios or android directory
+```shell script
+../bin/version.sh
+```
+
+**android**:
+
+From the /android directory
 ```shell script
 aapt dump badging ../build/app/outputs/apk/release/app-release.apk | grep package
 ```
-ios:
+
+**ios**:
 
 From the /ios directory:
 ```shell script
@@ -309,6 +325,21 @@ tar -zxvOf ../build/ios/outputs/ipa/Runner.ipa Payload/Runner.app/Info.plist | p
 
 ## Distirbution and Publishing
 
+#### Manual Distribution:
+
+**android**
+
+Go to the google play store connect panel, the releases section and create a new release.
+
+https://play.google.com/apps/publish/?account=8903415627879383311#AppListPlace
+
+```
+This app helps you as a protester show to outside observers that you are not participating in violence. 
+If non-protesters see other groups being violent, they are able to say to themselves: 
+"The protesters took an oath to be nonviolent, the violence must not come from them".
+
+Everyone who uses the app gets a unique picture to show others to prove that they took the protester's oath.
+```
 The sections below are still under construction:
 
 #### Distribution:

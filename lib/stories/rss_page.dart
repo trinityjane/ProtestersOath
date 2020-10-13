@@ -44,7 +44,7 @@ class RSSReaderState extends State<RSSReader> {
   List<FeedModel> _stories;
   List<FeedModel> _protests;
 
-  String _title; // Place holder for appbar title.
+  String _title = ''; // Place holder for appbar title.
 
   // Notification Strings
   static String loadingMessage = 'LOADING_FEED'.tr();
@@ -69,29 +69,13 @@ class RSSReaderState extends State<RSSReader> {
   // Method to help refresh the RSS data.
   // separate out stories and protest information from other posts.
   updateFeed(feed) async {
+    _feed = feed;
+    _cards = [for (var item in feed.items) FeedModel.fromRSSFeed(item)];
     setState(() {
-      _feed = feed;
-    });
-
-    bool isIn(item, value) {
-      bool found = false;
-      item.categories.forEach((element) => {
-            if (element.value == value) {found = true}
-          });
-      return found;
-    }
-
-    // note that stories and protests must be able to take each other's source feed.
-    setState(() {
-      _cards = [
-        for (var item in feed.items) FeedModel.fromRSSFeed(item)
-      ];
+      _stories = _cards.where((card) => card.type == 'Story').toList();
     });
     setState(() {
-      _stories = _cards.where((card) => card.type=='Story').toList();
-    });
-    setState(() {
-      _protests = _cards.where((card) => card.type=='Protest').toList();
+      _protests = _cards.where((card) => card.type == 'Protest').toList();
     });
   }
 
@@ -247,8 +231,7 @@ class RSSReaderState extends State<RSSReader> {
       listToShow.length > 0
           ? Container()
           : Padding(
-              padding:
-                  const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Text(
                 "NOTHINGTOSHOW".tr(),
                 style: TextStyle(
